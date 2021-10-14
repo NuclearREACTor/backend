@@ -41,6 +41,15 @@ router.get("/get/foodTypes", function (req, res, next) {
       console.log(err);
     });
 });
+router.get("/findById/:id",function(req,res,next){
+  Food.findById(req.params.id)
+  .then(FoodFound =>{
+    res.send(FoodFound);
+  })
+  .catch(err => {
+    console.log(err);
+  });
+});
 
 router.get("/get/search", function (req, res, next) {
   let foodName = req.query.foodName;

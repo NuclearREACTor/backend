@@ -4,13 +4,63 @@ const Food = require("../models/food");
 
 /* GET home page. */
 router.get("/get", function (req, res, next) {
+  let foodType = req.query.foodType;
+  if (foodType) {
+    Food.find()
+      .where("foodType")
+      .equals(foodType)
+      .then((result) => {
+        res.send(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  } else {
+    Food.find()
+      .then((result) => {
+        res.send(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+});
+
+router.get("/get/foodTypes", function (req, res, next) {
+  const foodSet = new Set();
   Food.find()
     .then((result) => {
-      res.send(result);
+      for (let items in result) {
+        foodSet.add(result[items].foodType);
+      }
+      console.log(foodSet);
+      const arr = [...foodSet];
+      res.send(JSON.stringify(arr));
     })
     .catch((err) => {
       console.log(err);
     });
+});
+
+router.get("/get/search", function (req, res, next) {
+  let foodName = req.query.foodName;
+  if (foodName) {
+    Food.find({ foodName: { $regex: foodName, $options: "i" } })
+      .then((result) => {
+        res.send(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  } else {
+    Food.find()
+      .then((result) => {
+        res.send(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 });
 
 router.get("/add", function (req, res, next) {

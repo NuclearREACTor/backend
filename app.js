@@ -10,6 +10,7 @@ var usersRouter = require("./routes/users");
 var helloRouter = require("./routes/hello");
 var foodRouter = require("./routes/food");
 var orderRouter = require("./routes/order");
+var payRouter = require("./routes/pay");
 var db = require("./models/db");
 
 var app = express();
@@ -34,6 +35,7 @@ app.use("/users", usersRouter);
 app.use("/hello", helloRouter);
 app.use("/food", foodRouter);
 app.use("/order", orderRouter);
+app.use("/pay", payRouter);
 
 // connect to DB
 const mongoose = require("mongoose");

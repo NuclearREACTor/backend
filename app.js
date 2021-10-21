@@ -28,14 +28,17 @@ app.use(express.static(path.join(__dirname, "public")));
 var corsOptions = {
   origin: ["http://localhost:3000", "https://foodappfe.herokuapp.com"],
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+  credentials: true // cookies and tokens allowed
 };
 app.use(cors(corsOptions));
 app.use("/", indexRouter);
-app.use("/users", usersRouter);
+app.use("/auth", usersRouter);
 app.use("/hello", helloRouter);
 app.use("/food", foodRouter);
 app.use("/order", orderRouter);
 app.use("/pay", payRouter);
+
+
 
 // connect to DB
 const mongoose = require("mongoose");

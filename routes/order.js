@@ -42,8 +42,6 @@ router.get("/findById/:id",function(req,res,next){
         });
 });
 
-
-
 router.get("/add", function(req,res,next){
   orderList = [{"food_id":"ssaa","quantity":3},{"food_id":"ddsss","quantity":3}]
 
@@ -53,5 +51,14 @@ router.get("/add", function(req,res,next){
     });
     res.send("Adding Order");
 });
+
+router.delete('/delete/:id', (req, res) => {
+  console.log("Inside Delete")
+  Order.deleteOne({ _id: req.params.id })
+      .then(() => {
+        res.send("Deleted Successfully.")
+      })
+      .catch(err => console.log(err))
+})
 
 module.exports = router;
